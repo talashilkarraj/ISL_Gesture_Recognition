@@ -1,35 +1,48 @@
 from django.shortcuts import render
-
+import time
 # Create your views here.
-
-import cv2
-from matplotlib import pyplot as plt
+from threading import Thread
+from matplotlib.style import context
 import mediapipe as mp
-import numpy as np
-
-mp_drawing = mp.solutions.drawing_utils
-mp_drawing_styles = mp.solutions.drawing_styles
-mp_hands = mp.solutions.hands
-mp_holistic = mp.solutions.holistic
-mp_objectron = mp.solutions.objectron
-
+from django.views.decorators import gzip
 from django.http.response import StreamingHttpResponse
-from ISL_Converter_App.webcamera import VideoCamera
+# from ISL_Converter_App.webcamera import VideoCamera
+from ISL_Converter_App.webcamtesting import VideoCamera
 # Create your views here.
 
-def index(request):
-	return render(request, 'ISL_Converter_App/index.html')
+camera = VideoCamera()
 
-def gen(camera):
+camera.thread = Thread(target=camera.process, args=())
+camera.thread.daemon = True
+camera.thread.start()
+
+def gen(request, camera):
 	while True:
-		frame = camera.get_frame()
+		frame, results = camera.process()
+		y=1
+		if y == 1:
+			camera.thread_text = Thread(target=camera.text_p, args=(results))
+			camera.thread_text.daemon = True
+			camera.thread_text.start()
+			y+=1
 		yield (b'--frame\r\n'
 				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+
+@gzip.gzip_page
 def video_feed(request):
-	return StreamingHttpResponse(gen(VideoCamera()),
+	return StreamingHttpResponse(gen(request, VideoCamera()),
 					content_type='multipart/x-mixed-replace; boundary=frame')
 
-# from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import LSTM, Dense
-# from tensorflow.keras.callbacks import TensorBoard
+
+@gzip.gzip_page
+def text_pred(request):
+	while True:
+		context = {}
+		frame, results = camera.process()
+		text = camera.text_p(results)
+		context['text'] = text
+		time.sleep(0.01)
+		return render(request, 'ISL_Converter_App/templates/ISL_Converter_App/VtoT.html', context)
+
+	

@@ -18,8 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from ISL_Converter_App import views
 
+from . import index
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="index"),
+    path('', index.home, name="home"),
     path('video_feed', views.video_feed, name="video_feed"),
+    path('text_pred', views.text_pred, name="text_pred"),
+    path("VtoT", index.video_to_text, name='video_to_text'),
+    path("TtoV", index.text_to_video, name='text_to_video'),
+    path("about", index.about, name='about'),
 ]

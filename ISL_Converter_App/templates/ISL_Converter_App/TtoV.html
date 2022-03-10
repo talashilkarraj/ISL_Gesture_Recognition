@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css" type="text/css"> -->
+    <link rel="stylesheet" href="{% static 'TtoV.css' %}" type="text/css"> 
+
+    <title>ISL Converter</title>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a class="active" href="{% url 'text_to_video' %}">Text To Video</a></li>
+            <li><a href="{% url 'video_to_text' %}">Video To Text</a></li>
+            <li><a href="#Working">Working</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+    </div>  
+
+    <div class="row">
+        <div class="column">
+            <h2>Text</h2>
+            <div id="column">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="your_name" style="font-size: 30px ;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"> Enter Text:</label>
+                    <input id="enter_text" style="height: 40px; width: 140px; margin: 10px;" type="text" name="keyword" value="{{ current_name }}">
+                    <input id="button" type="submit" value="Submit">
+                </form>
+            </div>
+            
+        </div>
+        <div class="column">
+                <h2>Video</h2>
+                {% if videopath %}
+                    <!-- {{videopath}} -->
+                    <video id="video" controls autoplay loop src="{{videopath}}"></video>
+                    <p>Video of the text given</p>
+                {%else%}
+                    Video Not Found
+                    <video id="video" src=" "></video>
+                    <p>Video of the text given</p>
+                {%endif%}
+        </div>
+    </div>
+    
+</body>
+</html>

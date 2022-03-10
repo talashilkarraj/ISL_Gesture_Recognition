@@ -61,18 +61,30 @@ mp_objectron = mp.solutions.objectron
 
 class VideoCamera(object):
     def __init__(self):
+        # self.video = cv2.VideoCapture(0)
+        # self.video.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+
+        # # FPS = 1/X
+        # # X = desired FPS
+        # self.FPS = 1/30
+        # self.FPS_MS = int(self.FPS * 1000)
+
+        # # Start frame retrieval thread
+        # self.thread = Thread(target=self.get_frame, args=())
+        # self.thread.daemon = True
+        # self.thread.start()
         self.video = cv2.VideoCapture(0)
-        self.video.set(cv2.CAP_PROP_BUFFERSIZE, 2)
-
-        # FPS = 1/X
-        # X = desired FPS
-        self.FPS = 1/30
-        self.FPS_MS = int(self.FPS * 1000)
-
-        # Start frame retrieval thread
+        # Start the thread to read frames from the video stream
         self.thread = Thread(target=self.get_frame, args=())
         self.thread.daemon = True
         self.thread.start()
+
+    # def update(self):
+    #     # Read the next frame from the stream in a different thread
+    #     while True:
+    #         if self.video.isOpened():
+    #             (self.status, self.frame) = self.video.read()
+    #         time.sleep(.01)
 
     # def update(self):
     #     while True:
@@ -86,46 +98,49 @@ class VideoCamera(object):
     def get_frame(self):
         with  mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
             while True:
-                success, image = self.video.read()
-                image.flags.writeable = False
-                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                results = holistic.process(image)
+                if self.video.isOpened():
+                    success, image = self.video.read()
+                    image.flags.writeable = False
+                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                    results = holistic.process(image)
 
-                # Draw the hand annotations on the image.
-                image.flags.writeable = True
-                image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-                if results.left_hand_landmarks:
-                    mp_drawing.draw_landmarks(
-                        image,
-                        results.left_hand_landmarks,
-                        mp_holistic.HAND_CONNECTIONS,
-                        # mp_drawing_styles.get_default_hand_landmarks_style(),
-                        # mp_drawing_styles.get_default_hand_connections_style()
-                        mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=2, circle_radius=2),
-                        mp_drawing.DrawingSpec(color=(31, 0, 209), thickness=2, circle_radius=2))
+                    # Draw the hand annotations on the image.
+                    image.flags.writeable = True
+                    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+                    if results.left_hand_landmarks:
+                        mp_drawing.draw_landmarks(
+                            image,
+                            results.left_hand_landmarks,
+                            mp_holistic.HAND_CONNECTIONS,
+                            # mp_drawing_styles.get_default_hand_landmarks_style(),
+                            # mp_drawing_styles.get_default_hand_connections_style()
+                            mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=2, circle_radius=2),
+                            mp_drawing.DrawingSpec(color=(31, 0, 209), thickness=2, circle_radius=2))
 
-                if results.right_hand_landmarks:
-                    mp_drawing.draw_landmarks(
-                        image,
-                        results.right_hand_landmarks,
-                        mp_holistic.HAND_CONNECTIONS,
-                        # mp_drawing_styles.get_default_hand_landmarks_style(),
-                        # mp_drawing_styles.get_default_hand_connections_style()
-                        mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=2, circle_radius=2),
-                        mp_drawing.DrawingSpec(color=(31, 0, 209), thickness=2, circle_radius=2))
-                # Flip the image horizontally for a selfie-view display.
-                
-                if results.face_landmarks:
-                    pass
-                    # mp_drawing.draw_landmarks(
-                    #     image,
-                    #     results.face_landmarks,
-                    #     mp_holistic.FACEMESH_CONTOURS,
-                    #     # mp_drawing_styles.get_default_hand_landmarks_style(),
-                    #     # mp_drawing_styles.get_default_hand_connections_style()
-                    #     mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=1, circle_radius=1),
-                    #     mp_drawing.DrawingSpec(color=(227, 227, 227), thickness=1, circle_radius=1))
-                # cv2.imshow('frame', self.frame)
-                # cv2.waitKey(self.FPS_MS)    
-                ret, jpeg = cv2.imencode('.jpg', image)
+                    if results.right_hand_landmarks:
+                        mp_drawing.draw_landmarks(
+                            image,
+                            results.right_hand_landmarks,
+                            mp_holistic.HAND_CONNECTIONS,
+                            # mp_drawing_styles.get_default_hand_landmarks_style(),
+                            # mp_drawing_styles.get_default_hand_connections_style()
+                            mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=2, circle_radius=2),
+                            mp_drawing.DrawingSpec(color=(31, 0, 209), thickness=2, circle_radius=2))
+                    # Flip the image horizontally for a selfie-view display.
+                    
+                    if results.face_landmarks:
+                        pass
+                        # mp_drawing.draw_landmarks(
+                        #     image,
+                        #     results.face_landmarks,
+                        #     mp_holistic.FACEMESH_CONTOURS,
+                        #     # mp_drawing_styles.get_default_hand_landmarks_style(),
+                        #     # mp_drawing_styles.get_default_hand_connections_style()
+                        #     mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=1, circle_radius=1),
+                        #     mp_drawing.DrawingSpec(color=(227, 227, 227), thickness=1, circle_radius=1))
+                    # cv2.imshow('frame', self.frame)
+                    # cv2.waitKey(self.FPS_MS)    
+                    ret, jpeg = cv2.imencode('.jpg', image)
+                time.sleep(0.001)
                 return jpeg.tobytes()
+                
