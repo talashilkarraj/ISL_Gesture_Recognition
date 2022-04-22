@@ -44,5 +44,4 @@ def text_pred(request):
 		context['text'] = text
 		time.sleep(0.01)
 		return render(request, 'ISL_Converter_App/templates/ISL_Converter_App/VtoT.html', context)
-
 	

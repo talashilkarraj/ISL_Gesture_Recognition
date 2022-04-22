@@ -12,25 +12,21 @@
     <title>ISL Converter</title>
 </head>
 <body>
-    <video autoplay muted loop id="myVideo">
-        <source src="{% static 'Video/bgvideo.mp4' %}" type="video/mp4">
-    </video>
     <div class="navbar">
         <ul>
             <li><a class="active" href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'text_to_video' %}">Text To Video</a></li>
             <li><a href="{% url 'video_to_text' %}">Video To Text</a></li>
-            <li><a href="#Working">Working</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
         </ul>
     </div>  
     <div class="welcome2">
         <div class="info">
             <h1 class="welcome">Welcome</h1>
-            <h3 style="font-size: 40px; text-align: center;margin-bottom:0px; padding-bottom: 0px;">Indian Sign Language</h3>
-            <h3 style="font-size: 30px; text-align: center; margin-bottom:30px; margin-top:5px;">Bridging the Gap</h3>
-            <div class="text2" style="font-size: 25px;">
-                One of society's fundamental flaws is the social divide that exists between people who are disabled
+            <h3 class="title" style="font-size: 40px; text-align: center;margin-bottom:0px; padding-bottom: 0px;">Indian Sign Language</h3>
+            <h3 class="subtitle" style="font-size: 30px; text-align: center; margin-bottom:30px; margin-top:5px;">Bridging the Gap</h3>
+            <div class="text2" style="font-size: 20px;">
+                One of the society's fundamental flaws is the social divide that exists between people who are disabled
                 or handicapped and people who have all of their human faculties in working conditions.
                 Communication, which is the foundation of human progress, is frequently an impediment for those
                 who are unable to communicate their thoughts. According to a World Health Organization report,
@@ -39,7 +35,9 @@
                 according to the JICA statistical profile on disability in India. Speech disorders account for 5.06
                 percent. The lack of appropriate tools to overcome this communication barrier has resulted in
                 societal inequity.<br>
-                This website is our attempt to tackle the problem, and create a feasible and eas-to-use solution.
+                <div style="justify-content: center; justify-items: center;">
+                    <br> &emsp;&emsp;&emsp;&emsp;This website is our attempt to tackle the problem, and create a feasible and easy-to-use solution.
+                </div>
                 
             </div>
     </div> 

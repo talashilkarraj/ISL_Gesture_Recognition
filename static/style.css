@@ -3,29 +3,30 @@ body {
   background-color: rgb(32, 32, 32);
 }
 
-.row {
-    display: flex;
-    padding: 6%;
-    margin: auto;
+.row {    
+  margin-top: 10rem;
+  display: flex;
+  padding: 6%;
+  margin: auto;
   }
   
 .column {
-    flex: 50%;
-    padding: 20px;
-    margin: 10px;
-    height: 35rem; 
-    background-color:rgb(255, 241, 215);
-    border-radius: 25px;
-    text-align: center;
-    /* box-shadow: 5px 8px 2px #fff7deaf;  */
+  flex: 50%;
+  padding: 20px;
+  margin: 10px;
+  height: 35rem; 
+  background-color:rgb(255, 241, 215);
+  border-radius: 25px;
+  text-align: center;
+  /* box-shadow: 5px 8px 2px #fff7deaf;  */
    }
 
 #webcam{
-    padding: 0;
-    margin: 0;
-    width: 29rem;
-    height: 25rem;
-    border-radius: 28px;
+  padding: 0;
+  margin: 0;
+  width: 29rem;
+  height: 25rem;
+  border-radius: 28px;
 }
 
 ul {
@@ -34,6 +35,7 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: rgb(12, 12, 12);
+  z-index: 3;
   position: fixed;
   top: 0;
   width: 100%;
@@ -57,4 +59,20 @@ li a:hover:not(.active) {
 
 .active {
   background-color: #0760b3;
+}
+
+@media screen and (max-width: 680px) {
+  .row{
+  flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .column{
+  width: 25rem; 
+  }
+  #column{
+      justify-content: center;
+      margin: 7rem;
+  }
 }

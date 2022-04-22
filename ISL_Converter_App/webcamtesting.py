@@ -4,7 +4,7 @@ import mediapipe as mp
 from threading import Thread
 import time
 import numpy as np
-
+import tensorflowjs as tfjs
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
@@ -23,62 +23,10 @@ mp_hands = mp.solutions.hands
 mp_holistic = mp.solutions.holistic
 mp_objectron = mp.solutions.objectron
 
-# class ThreadedCamera(object):
-#     def __init__(self, src=0):
-#         self.capture = cv2.VideoCapture(src)
-#         self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
-
-#         # FPS = 1/X
-#         # X = desired FPS
-#         self.FPS = 1/30
-#         self.FPS_MS = int(self.FPS * 1000)
-
-#         # Start frame retrieval thread
-#         self.thread = Thread(target=self.update, args=())
-#         self.thread.daemon = True
-#         self.thread.start()
-
-#     def update(self):
-#         while True:
-#             if self.capture.isOpened():
-#                 (self.status, self.frame) = self.capture.read()
-
-#     def grab_frame(self):
-#         if self.status:
-#             return self.frame
-#         return None  
 
 class VideoCamera(threading.Thread):
     def __init__(self):
-        # self.video = cv2.VideoCapture(0)
-        # self.video.set(cv2.CAP_PROP_BUFFERSIZE, 2)
-
-        # # FPS = 1/X
-        # # X = desired FPS
-        # self.FPS = 1/30
-        # self.FPS_MS = int(self.FPS * 1000)
-
-        # # Start frame retrieval thread
-        # self.thread = Thread(target=self.get_frame, args=())
-        # self.thread.daemon = True
-        # self.thread.start()
-        self.video = cv2.VideoCapture(0)
-
-        # Start the thread to read frames from the video stream
-        # self.thread = Thread(target=self.process, args=())
-        # self.thread.daemon = True
-        # self.thread.start()
-
-        # _, results = self.process()
-        # self.thread2 = Thread(target=self.text_p, args=(results))
-        # self.thread2.daemon = True
-        # self.thread2.start()
-
-    # def update(self):
-    #     while True:
-    #         if self.capture.isOpened():
-    #             (self.status, self.frame) = self.capture.read()
-    #         time.sleep(self.FPS)
+        self.video = cv2.VideoCapture(1000)
 
     def __del__(self):
         self.video.release()
@@ -87,6 +35,7 @@ class VideoCamera(threading.Thread):
     def process(self):
         # while True:
         with  mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+            time.sleep(5)
             if self.video.isOpened():
                 success, image = self.video.read()
                 image.flags.writeable = False
@@ -116,7 +65,6 @@ class VideoCamera(threading.Thread):
                         mp_drawing.DrawingSpec(color=(252, 169, 3), thickness=2, circle_radius=2),
                         mp_drawing.DrawingSpec(color=(31, 0, 209), thickness=2, circle_radius=2))
                 # Flip the image horizontally for a selfie-view display.
-            
             _ret, jpeg = cv2.imencode('.jpg', image)
             return jpeg.tobytes(), results
 
@@ -161,6 +109,7 @@ class VideoCamera(threading.Thread):
                 model.add(Dense(64, activation='relu'))
                 model.add(Dense(32, activation='relu'))
                 model.add(Dense(actions.shape[0], activation='softmax'))
+                tfjs.converters.save_keras_model(model, "./")
                 model.load_weights('final_accuracy.h5')
 
                 #model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
@@ -169,3 +118,20 @@ class VideoCamera(threading.Thread):
                 output_text = actions[np.argmax(res)]
                 print(output_text)
                 return output_text
+
+# sequence = []
+# actions = np.array(['help', 'thief', 'pain'])
+
+# model = Sequential()
+# model.add(LSTM(64, return_sequences=True, activation='relu', input_shape=(2,126)))
+# model.add(LSTM(128, return_sequences=True, activation='relu'))
+# model.add(LSTM(64, return_sequences=False, activation='relu'))
+# model.add(Dense(64, activation='relu'))
+# model.add(Dense(32, activation='relu'))
+# model.add(Dense(actions.shape[0], activation='softmax'))
+# model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+# # model.fit(X_train, y_train, epochs=800, callbacks=[tb_callback])
+# model.load_weights('./final_accuracy.h5')
+
+# tfjs.converters.save_keras_model(model, "./")
+

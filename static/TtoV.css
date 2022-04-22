@@ -5,15 +5,21 @@ body {
   
 .row {
     display: flex;
-    padding: 6%;
+    grid-template-columns: auto auto ;
+    padding-top: 5rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    padding-bottom: 1.5rem;
     margin: auto;
 }
 
 .column {
     flex: 50%;
     padding: 20px;
-    margin: 10px;
-    height: 35rem; 
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: 33rem; 
+    width: 38rem;
     background-color:rgb(255, 241, 215);
     border-radius: 25px;
     text-align: center;
@@ -21,7 +27,7 @@ body {
 }
 
 #column{
-    margin: 12rem;
+    margin: 10rem;
     justify-content: center;
     align-items: center;
 }   
@@ -29,7 +35,7 @@ body {
 #video{
     padding: 0;
     margin: 0;
-    width: 29rem;
+    width: 35rem;
     height: 25rem;
     border-radius: 28px;
 }
@@ -37,7 +43,7 @@ body {
 
 #button {
     margin: 20px;
-    background-color: #4CAF50; /* Green */
+    background-color: #379e3b;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -47,12 +53,16 @@ body {
     font-size: 16px;
 }
 
+#button:hover{
+    background-color: #4bb14f;
+}
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: rgb(12, 12, 12);
+    z-index: 3;
     position: fixed;
     top: 0;
     width: 100%;
@@ -80,15 +90,28 @@ li a:hover:not(.active) {
 }
 
 @media screen and (max-width: 480px) {
-    .row{
+    .info{
     flex-wrap: wrap;
     }
 }
 
 @media screen and (max-width: 780px) {
+    .row {
+        display: grid;
+        grid-template-columns: auto ;
+        padding: 2rem;
+        margin: 2rem;
+    }    
     .column{
-    width: 25rem; 
+        width: 25rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem; 
     }
+
+    #video{
+        width: 25rem;
+    }
+
     #column{
         justify-content: center;
         margin: 7rem;

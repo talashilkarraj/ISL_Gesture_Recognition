@@ -1,46 +1,52 @@
 body {
     margin:0;
-    background-color: rgb(32, 32, 32);
+    background-color: rgb(255, 247, 242);
   }
 
-#myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    /* -webkit-filter: blur(30px);
-    -moz-filter: blur(10);
-    -o-filter: blur(30px);
-    -ms-filter: blur(40); */
-    filter: blur(20px);
-}
-
-.footertext{
-    color: aliceblue; 
-    text-decoration: none;
-}
-.footertext:hover{
-    color: rgb(255, 175, 71);
-}
 
 .welcome{
     font-size: 65px;
-    color: rgb(0, 14, 27);
+    color: rgb(9, 4, 150);
     text-align: center;
-    margin-top: 80px;
+    margin-top: 30px;
     size: 100px;
 }
+
 .info{
     text-align: justify;
     text-justify: inter-word;
-    position: fixed;
     font-size: 30px;
-    color: rgb(27, 27, 27);
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 4%;
+    color: rgb(25, 25, 25);
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 4rem;
+    margin-bottom: 7rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    animation: 2s anim-lineUp ease-out ;
 }
+.text2{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    animation: 2s anim-lineUp ease-in ;
+}
+@keyframes anim-lineUp {
+    0% {
+      opacity: 0;
+      transform: translateY(5%);
+    }
+    20% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
 ul {
     list-style-type: none;
     margin: 0;
@@ -79,4 +85,48 @@ li a:hover:not(.active) {
   }
 .active {
     background-color: #0760b3;
+}
+
+.footertext{
+    color: aliceblue; 
+    text-decoration: none;
+}
+.footertext:hover{
+    color: rgb(255, 175, 71);
+}
+
+@media screen and (max-width: 580px) {
+    .welcome{
+        font-size: 45px;
+    }
+    .info{
+    flex-wrap: wrap;
+    }
+    @keyframes anim-lineUp {
+        0% {
+          opacity: 0;
+          transform: translateY(1%);
+        }
+        20% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+}
+
+@media screen and (max-width: 780px) {
+    .column{
+    width: 25rem; 
+    }
+    #column{
+        justify-content: center;
+        margin: 7rem;
+    }
 }

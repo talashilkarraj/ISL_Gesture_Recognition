@@ -13,48 +13,57 @@
 </head>
 <body>
     <div class="main">
-        <video autoplay muted loop id="myVideo">
-            <source src="{% static 'Video/bgvideo.mp4' %}" type="video/mp4">
-        </video>
         <div class="navbar">
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'text_to_video' %}">Text To Video</a></li>
                 <li><a href="{% url 'video_to_text' %}">Video To Text</a></li>
-                <li><a href="#Working">Working</a></li>
                 <li><a class="active" href="{% url 'about' %}">About</a></li>
             </ul>
         </div>  
         <div class="welcome2">
             <div class="info">
-                <h1 class="welcome">MOTIVE OF THE PROJECT</h1>
+                <h1 class="welcome">Motive of the Project</h1>
                 <br>
                 <h1 class="welcome" style="font-size: 20px; margin-top: 0px; margin-bottom: 0px;">GROUP NO: 5</h1><br>
-                <div style="text-align: center; font-weight:bold;">
+                <div style="text-align: center; font-weight:300; margin-bottom: 0;">
                     Presented By:<br>
-                    MENTOR: Dr. Abhay Kshirsagar<br>
-                    GROUP MEMBERS:<br>
-                    Raj Talashilkar&emsp;Grusha Shetty &emsp;Harshal Jouras &emsp;Aditya Rode 
-                    <br><br>
+                    <a style="font-weight:bold;">Mentor: Dr. Abhay Kshirsagar</a> <br>
+                    Group Members:<br>
+                    <!-- Raj Talashilkar&emsp;Grusha Shetty &emsp;Harshal Jouras &emsp;Aditya Rode  -->
+                    <div class="scroller">
+                        <span>
+                            Grusha Shetty<br/>
+                            Harshal Jouras<br/>
+                            Raj Talashilkar<br/>
+                            Aditya Rode
+
+                        </span>
+                    </div>
+                    <br>
                 </div>
-                One of society's fundamental flaws is the social divide that exists between people who are disabled or 
-                handicapped and people who have all of their human faculties in working conditions. Communication, which is 
-                the foundation of human progress, is frequently an impediment for those who are unable to communicate their 
-                thoughts. According to a World Health Organization report, 63 million individuals in India suffer from complete or 
-                partial deafness, with at least 50 lakhs of them being children. While applications catering to American Sign 
-                language detection and conversion are readily available, people using Indian Sign Language are still in need 
-                of a mode of easy communication. This WebApp was hence developed with the goal of bridging the communication 
-                gap between the disabled and the rest of the population. With the help of this webapp deaf and mute people can 
-                communicate easily as it efficiently converts sign language into corresponding text and vice versa.   
+                <div class="text2">
+                    A sign is a form of nonverbal communication that uses body parts, hand shapes, hand positions and movements, arms, facial expressions, 
+                    or lip movements instead of oral communication.
+                    Dynamic gestures include strokes, prestrokes, postures, and phases, whereas configurations are static gestures. 
+                    The most important aspect of Indian Sign Language (ISL) is that it does not include grammar. 
+                    Sign language, like spoken languages and dialects, has been designed differently depending on region and culture.<br> 
+                    This system will undoubtedly benefit society by assisting physically disabled Indians. 
+                    The majority of people struggle to understand ISL gestures. 
+                    This has resulted in a communication schism between those who understand ISL and those who do not. 
+                    It is not always possible to find an interpreter to translate these gestures when they are required.<br> 
+                    A potential solution was implemented to facilitate this communication, which would translate hand poses and gestures from ISL in real-time. 
+                    This system will serve as an aid for a deaf-mute to communicate with ordinary people via computer. 
+                </div>  
         </div> 
         
         <div class="footer">
             <p>
-                Mentor: Dr. Abhay Kshirsagar<br>
-                <a href="https://www.linkedin.com/in/raj-talashilkar/" style="color: aliceblue;  text-decoration: none;">Raj Talashilkar</a> &emsp; 
-                <a href="https://www.linkedin.com/in/grusha-shetty-58346b229" style="color: aliceblue;  text-decoration: none;">Grusha Shetty</a> &emsp; 
-                <a href="https://www.linkedin.com/in/harshal-jouras-3b06431b2" style="color: aliceblue;  text-decoration: none;">Harshal Jouras</a> &emsp;
-                <a href="https://in.linkedin.com/in/aditya-rode-12ba15194" style="color: aliceblue;  text-decoration: none;">Aditya Rode</a><br>
+                Mentor: <a class="footertext" href="https://www.linkedin.com/in/abhay-kshirsagar-46285534/">Dr. Abhay Kshirsagar</a><br>
+                <a class="footertext" href="https://www.linkedin.com/in/raj-talashilkar/">Raj Talashilkar</a> &emsp; 
+                <a class="footertext" href="https://www.linkedin.com/in/grusha-shetty-58346b229">Grusha Shetty</a> &emsp; 
+                <a class="footertext" href="https://www.linkedin.com/in/harshal-jouras-3b06431b2">Harshal Jouras</a> &emsp;
+                <a class="footertext" href="https://in.linkedin.com/in/aditya-rode-12ba15194">Aditya Rode</a><br>
             </p>
           </div>
     </div>
